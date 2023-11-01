@@ -14,7 +14,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Configura los orígenes permitidos (cambia esto según tu necesidad)
-        config.addAllowedOrigin("http://localhost:8000"); // Permitir solicitudes desde este origen
+        config.addAllowedOrigin("*"); // Permitir solicitudes desde este origen
         config.addAllowedHeader("*"); // Permitir todos los encabezados
         config.addAllowedMethod("*"); // Permitir todos los métodos (GET, POST, PUT, DELETE, etc.)
 
