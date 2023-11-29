@@ -4,8 +4,5 @@ import com.example.demo.Modelo.Provedores;
 
 public interface ProvedorRepo extends JpaRepository<Provedores,Long>{
 
- 
-   
-    
 
 }

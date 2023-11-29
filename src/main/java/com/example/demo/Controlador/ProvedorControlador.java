@@ -31,43 +31,31 @@ public class ProvedorControlador {
     }
 
     @GetMapping("/list/{id}")
-    public ResponseEntity<Provedores> getProveedorById(@PathVariable Long id) {
-        Provedores proveedor = provedorservicio.getProveedorById(id);
-        if (proveedor != null) {
-            return ResponseEntity.ok(proveedor);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Provedores BuscarporId(@PathVariable Long id) {
+        return provedorservicio.buscarprovedor(id);
     }
-    @PostMapping("/crear")
+
+    @PostMapping("/post")
     public ResponseEntity<Provedores> agregar(@RequestBody Provedores provedor) {
         Provedores obj = provedorservicio.grabarprovedor(provedor);
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> deleteProveedor(@PathVariable Long id) {
-        Provedores proveedor = provedorservicio.getProveedorById(id);
-        if (proveedor != null) {
-            provedorservicio.deleteProveedor(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/editar")
+    public ResponseEntity<Provedores> Editar(@RequestBody Provedores provedor) {
+        Provedores obj = provedorservicio.buscarprovedoreditar(provedor);
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
-    @PutMapping("/editar")
-    public ResponseEntity<Provedores> updateProveedor(@RequestBody Provedores proveedor) {
-        Provedores existingProveedor = provedorservicio.buscarprovedoreditar(proveedor);
-        if (existingProveedor != null) {
-            existingProveedor.setCiudad(proveedor.getCiudad());
-            existingProveedor.setDireccion(proveedor.getDireccion());
-            existingProveedor.setNombre(proveedor.getNombre());
-            // Actualiza otros atributos si es necesario
-            Provedores updatedProveedor = provedorservicio.grabarprovedor(existingProveedor);
-            return ResponseEntity.ok(updatedProveedor);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Provedores> Eliminar(@PathVariable Long id) {
+        Provedores obj = provedorservicio.buscarprovedor(id);
+
+        if (obj != null) {
+            provedorservicio.delete(id);
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<Provedores>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 }

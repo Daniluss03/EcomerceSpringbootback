@@ -16,7 +16,6 @@ import com.example.demo.Modelo.Credencialess;
 public class UsuarioService {
     @Autowired
     private LoginRepo credencialesRepository;
-
     public boolean autenticar(String username, String password) {
         Credencialess credenciales = credencialesRepository.findByUsername(username);
         return credenciales != null && credenciales.getPassword().equals(password);
